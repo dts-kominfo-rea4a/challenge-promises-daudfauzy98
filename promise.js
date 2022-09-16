@@ -4,17 +4,13 @@ const { promiseTheaterIXX, promiseTheaterVGC } = require("./external.js");
 const promiseOutput = async (emosi) => {
    let theaterIXX = await promiseTheaterIXX()
    let theaterVGC = await promiseTheaterVGC()
+   let dataFilms = [...theaterIXX, ...theaterVGC]
 
    return new Promise ((resolve, reject) => {
-      if (theaterIXX && theaterVGC) {
+      if (dataFilms.length) {
          let countEmotions = 0
 
-         for (films of theaterIXX) {
-            if (films.hasil === emosi) {
-               countEmotions += 1
-            }
-         }
-         for (films of theaterVGC) {
+         for (films of dataFilms) {
             if (films.hasil === emosi) {
                countEmotions += 1
             }
@@ -22,7 +18,7 @@ const promiseOutput = async (emosi) => {
 
          resolve(countEmotions)
       } else {
-         reject("Data kosong atau terjadi error")
+         reject("Data kosong")
       }
    })
 };
